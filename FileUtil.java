@@ -1,24 +1,24 @@
 	
-	// FileUtil  �ļ�����������
+	// FileUtil  文件操作工具类
 	
-	// ��1���ж��ļ��Ƿ����
-	// ��2��ɾ�� Ŀ¼���ڲ��ļ� �� �ļ�
-	// ��3���洢���Ƿ����
-	// ��4����ȡ�ֻ��ڲ�ʣ��洢�ռ�
-	// ��5����ȡ�ļ���
-	// ��6���ж�����Ŀ¼�Ƿ���ڣ������ڵĻ��򴴽�
-	// ��7����ȡ�ļ�����
-	// ��8��Java�ļ����� ��ȡ������չ�����ļ���
+	// （1）判断文件是否存在
+	// （2）删除 目录及内部文件 或 文件
+	// （3）存储卡是否可用
+	// （4）获取手机内部剩余存储空间
+	// （5）获取文件名
+	// （6）判断下载目录是否存在，不存在的话则创建
+	// （7）获取文件长度
+	// （8）Java文件操作 获取不带扩展名的文件名
 	
 public class FileUtil{
 		
 	/**
-     * FileUtil����
+     * FileUtil对象
      */
     private static FileUtil mFileUtil = null;
 		
 	/**
-     * ������ȡFileUtil
+     * 单例获取FileUtil
      *
      * @param context
      * @return
@@ -31,7 +31,7 @@ public class FileUtil{
     }
 	
 	/**
-	*  ��1���ж��ļ��Ƿ����
+	*  （1）判断文件是否存在
 	*/
     public static boolean isExsistsFile(String filepath) {
         try {
@@ -47,35 +47,35 @@ public class FileUtil{
     }
 	
 	/**
-    *  ��2��ɾ��   Ŀ¼���ڲ��ļ� �� �ļ�
+    *  （2）删除   目录及内部文件 或 文件
     */
     private void folderDelete(String folderName) {
         File file = new File(folderName);
-        if (file.exists()) { 			// �ж��ļ��Ƿ����
-            if (file.isFile()) { 		// �ж��Ƿ����ļ�
+        if (file.exists()) { 			// 判断文件是否存在
+            if (file.isFile()) { 		// 判断是否是文件
                 file.delete();
-            } else if (file.isDirectory()) { 				// �����������һ��Ŀ¼
-                File files[] = file.listFiles(); 			// ����Ŀ¼�����е��ļ� files[];
-                for (int i = 0; i < files.length; i++) { 	// ����Ŀ¼�����е��ļ�
+            } else if (file.isDirectory()) { 				// 否则如果它是一个目录
+                File files[] = file.listFiles(); 			// 声明目录下所有的文件 files[];
+                for (int i = 0; i < files.length; i++) { 	// 遍历目录下所有的文件
                     files[i].delete();
                 }
             }
             file.delete();
         } else {
-            // Log.i("FileUtil", "�ļ���Ŀ¼������");
+            // Log.i("FileUtil", "文件或目录不存在");
         }
     }
 	
 	/**
-     * ��3���洢���Ƿ���� 
+     * （3）存储卡是否可用 
      */
     public boolean SDCardExists() {
-		// �ڲ��洢����/Download/ Ŀ¼
+		// 内部存储卡，/Download/ 目录
         return Environment.getExternalStorageState().equals(android.os.Environment.DIRECTORY_DOWNLOADS);
     }
 	
 	/**
-     * ��4����ȡ�ֻ��ڲ�ʣ��洢�ռ� 
+     * （4）获取手机内部剩余存储空间 
 	 * @return
      */
     public static long getAvailableInternalMemorySize() {
@@ -87,7 +87,7 @@ public class FileUtil{
     }
 	
 	/**
-	*  ��5����ȡ�ļ���
+	*  （5）获取文件名
 	*/
 	public static String getFileName(String pathandname) {
         int start = pathandname.lastIndexOf("/");
@@ -100,9 +100,9 @@ public class FileUtil{
     }
 	
 	/**
-     * ��6���ж�����Ŀ¼�Ƿ���ڣ������ڵĻ��򴴽�
+     * （6）判断下载目录是否存在，不存在的话则创建
      *
-     * @param path ����Ŀ¼����·����
+     * @param path 下载目录完整路径名
      */
     public static boolean checkDownloadDir(String path) {
         boolean res = false;
@@ -118,7 +118,7 @@ public class FileUtil{
     }
 	
 	/**
-	*  ��7����ȡ�ļ�����
+	*  （7）获取文件长度
 	*/
 	public static long getFileSize(String path) {
         if (path.isEmpty()) {
@@ -129,7 +129,7 @@ public class FileUtil{
     }
 	
 	/**
-     * ��8��Java�ļ����� ��ȡ������չ�����ļ���
+     * （8）Java文件操作 获取不带扩展名的文件名
      */
     public static String getFileNameNoEx(String filename) {
         if ((filename != null) && (filename.length() > 0)) {
